@@ -1,0 +1,36 @@
+<nav
+  class="navbar navbar-expand-lg navbar-transparent  navbar-absolute fixed-top"
+>
+  <div class="container-fluid">
+    <button
+      mat-raised-button
+      class="navbar-toggler"
+      type="button"
+      (click)="sidebarToggle()"
+    >
+      <span class="sr-only">Toggle navigation</span>
+      <span class="navbar-toggler-icon icon-bar"></span>
+      <span class="navbar-toggler-icon icon-bar"></span>
+      <span class="navbar-toggler-icon icon-bar"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navigation">
+      <ul class="navbar-nav spacing">
+        <li class="nav-item">
+          <span class=" spacingli">Welcome! {{ userName }}</span>
+        </li>
+        <li class="nav-item">
+          <i [matMenuTriggerFor]="menu" class="material-icons" style="cursor: pointer">
+            settings
+          </i>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="logout()" href="#">
+              <i class="material-icons">
+                power_settings_new </i
+              >&nbsp; Logout
+            </button>
+          </mat-menu>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

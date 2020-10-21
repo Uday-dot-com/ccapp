@@ -1,0 +1,35 @@
+<div class="card">
+  <div class="card-header ">
+    <div class="col-md-7">
+      <mat-form-field class="example-full-width">
+        <input
+          matInput
+          [(ngModel)]="bankModel.bankName"
+          placeholder="Enter Bank Name"
+          type="text"
+          name="bankName"
+          required
+        />
+      </mat-form-field>
+    </div>
+    <mat-card-actions>
+      <button
+        mat-raised-button
+        type="submit"
+        [disabled]="!bankModel.bankName"
+        (click)="saveBankType()"
+        class="btn btn-danger pull-left"
+      >
+        Save
+      </button>
+      <button
+        mat-raised-button
+        mat-dialog-close
+        class="btn btn-danger pull-right"
+      >
+        Cancel
+      </button>
+    </mat-card-actions>
+    <div class="clearfix"></div>
+  </div>
+</div>

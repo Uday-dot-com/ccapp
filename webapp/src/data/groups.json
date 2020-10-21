@@ -1,0 +1,25 @@
+{"APR": {
+    "Introductory":"",
+    "Free Billing Cycles":"",
+    "Variable APR":{
+        "Min":"",
+        "Max":""
+    },
+    "APR for Cash Advances":{
+        "Min":"",
+        "Max":""
+    }
+},
+"Late Penalty":{
+    "Amounts":"",
+    "Late Penalty APR":""
+},
+"Cash Advance Fees":{
+    "%":"",
+    "Min":""
+},
+"Balance Transfer Fees":{
+    "%":"",
+    "Min":""
+}
+}

@@ -1,0 +1,29 @@
+{
+  "name": "creditkarmaapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Raj",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "crypto2": "^2.0.0",
+    "exceljs": "^1.15.0",
+    "express": "^4.17.1",
+    "jwt-simple": "^0.5.6",
+    "mongo-xlsx": "^1.0.12",
+    "mongoose": "^5.6.1",
+    "mongoose-unique-validator": "^2.0.3",
+    "mongoose-validator": "^2.1.0",
+    "node-excel-export": "^1.4.4",
+    "node-rsa": "^1.0.6"
+  },
+  "devDependencies": {
+    "electron": "^6.0.3"
+  }
+}

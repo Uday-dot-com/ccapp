@@ -1,0 +1,45 @@
+<div class="card">
+  <div class="card-header ">
+    <h4 class="card-title">Credit Card Details</h4>
+
+    <div class="col-md-5">
+      <mat-form-field>
+        <mat-label>Select Bank</mat-label>
+        <mat-select class="select1" [(ngModel)]="bank" name="bankName" required>
+          <mat-option *ngFor="let bank of banks" [value]="bank._id">
+            {{ bank.bankName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-7">
+      <mat-form-field class="example-full-width" style="width: 190%">
+        <input
+          matInput
+          placeholder="Credit Card Name"
+          type="text"
+          [(ngModel)]="cardName"
+          name="cardname"
+          required
+        />
+      </mat-form-field>
+    </div>
+    <button
+      mat-raised-button
+      type="submit"
+      [disabled]="!cardName || !bank"
+      (click)="addCard()"
+      class="btn btn-danger pull-left"
+    >
+      Save
+    </button>
+    <button
+      mat-raised-button
+      mat-dialog-close
+      class="btn btn-danger pull-right"
+    >
+      Cancel
+    </button>
+    <div class="clearfix"></div>
+  </div>
+</div>

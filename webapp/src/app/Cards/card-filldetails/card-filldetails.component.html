@@ -1,0 +1,825 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Fill Details</h4>
+          </div>
+          <div class="card-body" *ngFor="let card of cardDetail">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+              <ng-container matColumnDef="bankName">
+                <th mat-header-cell *matHeaderCellDef>Bank Name</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.bank.bankName }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="cardName">
+                <th mat-header-cell *matHeaderCellDef>Card Name</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.cardName }}
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+            <br />
+            <div class="mat-elevation-z8">
+              <mat-vertical-stepper [linear]="isLinear" #stepper>
+                <mat-step [stepControl]="firstFormGroup">
+                  <form [formGroup]="firstFormGroup">
+                    <ng-template matStepLabel>General</ng-template>
+                    <div>
+                      <div class="spacing divBorder">
+                        <mat-form-field>
+                          <mat-label>Card Network</mat-label>
+                          <mat-select [(ngModel)]="selectModel.cardNetwork" [ngModelOptions]="{ standalone: true }">
+                            <mat-option *ngFor="let network of networks" [value]="network.values">
+                              {{ network.values }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <mat-label>Card Category</mat-label>
+                          <mat-select [(ngModel)]="selectModel.cardCategory" [ngModelOptions]="{ standalone: true }">
+                            <mat-option *ngFor="let Category of category" [value]="Category.categories">
+                              {{ Category.categories }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <mat-label>Store Card</mat-label>
+                          <mat-select [(ngModel)]="selectModel.storeCard" [ngModelOptions]="{ standalone: true }">
+                            <mat-option *ngFor="let drop of Drops" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div class="spacing divBorder">
+                        <mat-form-field class="url1">
+                          <input matInput placeholder="Card URL" [(ngModel)]="selectModel.cardUrl"
+                            formControlName="cardUrl" type="url" required/>
+                        </mat-form-field>
+                      </div>
+                      <div class="spacing divBorder">
+                        <mat-form-field class="url1">
+                          <input matInput type="url" placeholder="Card image URL" [(ngModel)]="selectModel.cardImageUrl"
+                            name="imageurl" formControlName="cardImageUrl" required />
+                        </mat-form-field>
+                      </div>
+                      <div class="spacing divBorder">
+                        <mat-form-field class="url1"><textarea matInput placeholder="Card Description"
+                            [(ngModel)]="selectModel.cardDescription" formControlName="cardDescription"
+                            ></textarea></mat-form-field>
+                      </div>
+                      <div class="spacing divBorder">
+                        <mat-form-field class="url1"><textarea matInput rows="4" placeholder="Notes"
+                            [(ngModel)]="selectModel.generalNotes" formControlName="generalNotes"></textarea>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <button mat-raised-button class="btn btn-danger" matStepperNext>
+                      Next
+                    </button>
+                  </form>
+                </mat-step>
+                <mat-step [stepControl]="secondFormGroup">
+                  <form [formGroup]="secondFormGroup">
+                    <ng-template matStepLabel>Fee</ng-template>
+                    <div class="spacing divBorder">
+                      <mat-form-field>
+                        <input matInput placeholder="Reward Unit" [(ngModel)]="selectModel.rewardUnit" name="rewardUnit"
+                          formControlName="rewardUnit"/>
+                        <mat-error *ngIf="!pattern">Please Enter dollar Sign($)</mat-error>
+                      </mat-form-field>
+                      <mat-form-field>
+                        <input matInput placeholder="Annual Fee" [(ngModel)]="selectModel.annualFee"
+                          formControlName="annualFee" required/>
+                          <mat-error *ngIf="!required">Please Enter Annual Fee or 0</mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="divBorder">
+                      <h5 class="labelCenter">APR</h5>
+                      <div class="spacing">
+                        <mat-form-field>
+                          <input matInput placeholder="Introductory" [(ngModel)]="selectModel.apr_introductory"
+                            formControlName="apr_introductory" />
+                          <mat-error *ngIf="!pattern">Please Enter Decimal Number upto 2 places or N/A</mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <input matInput placeholder="Free Billing Cycles" disable = "true"
+                            [(ngModel)]="selectModel.apr_freeBillingCycle" formControlName="apr_freeBillingCycle" />
+                          <mat-error *ngIf="!pattern">Please Enter Valid Number or N/A</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="spacing">
+                        <label class="labelCenter">Variable APR -></label>
+                        <mat-form-field>
+                          <input matInput placeholder="Min" [(ngModel)]="selectModel.apr_varApr_min"
+                            formControlName="apr_varApr_min" />
+                          <mat-error *ngIf="!pattern">Please Enter Valid Number or N/A</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                          <input matInput placeholder="Max" [(ngModel)]="selectModel.apr_varApr_max"
+                            formControlName="apr_varApr_max" />
+                          <mat-error *ngIf="!pattern">Please Enter Valid Number or N/A</mat-error>
+                        </mat-form-field>
+                        <label class="labelCenter">APR for Cash Advances -></label>
+                        <mat-form-field>
+                          <input matInput placeholder="Min" [(ngModel)]="selectModel.apr_cashAdvances_min"
+                            formControlName="apr_cashAdvances_min" />
+                          <mat-error *ngIf="!pattern">Please Enter Valid Number or N/A</mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <input matInput placeholder="Max" [(ngModel)]="selectModel.apr_cashAdvances_max"
+                            formControlName="apr_cashAdvances_max" />
+                          <mat-error *ngIf="!pattern">Please Enter Valid Number or N/A</mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="spacing divBorder">
+                      <label class="labelCenter">Late Penalty</label>
+                      <mat-form-field>
+                        <input matInput placeholder="Amount($)" [(ngModel)]="selectModel.latePenalty_amount"
+                          formControlName="latePenalty_amount" />
+                        <mat-error *ngIf="!pattern">Please Enter Valid Number or N</mat-error>
+                      </mat-form-field>
+                      <mat-form-field>
+                        <input matInput placeholder="Late Penalty APR(%)" [(ngModel)]="selectModel.latePenalty_lateApr"
+                          formControlName="latePenalty_lateApr" />
+                        <mat-error *ngIf="!pattern">Please Enter Valid Number or N</mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="spacing divBorder">
+                      <mat-form-field>
+                        <input matInput placeholder="Cash Advance Fee(%)"
+                          [(ngModel)]="selectModel.cashAdvanceFee_percent" formControlName="cashAdvanceFee_percent" />
+                        <mat-error *ngIf="!pattern">Please Enter Valid Number or N/A</mat-error>
+                      </mat-form-field>
+                      <mat-form-field>
+                        <input matInput placeholder="Cash Advance Fee Min($)"
+                          [(ngModel)]="selectModel.cashAdvanceFee_min" formControlName="cashAdvanceFee_min" />
+                        <mat-error *ngIf="!pattern">Please Enter Valid Number or N/A</mat-error>
+                      </mat-form-field>
+                      <mat-form-field>
+                        <input matInput placeholder="Balance Transfer Fee(%)"
+                          [(ngModel)]="selectModel.balanceTransferFee_percent"
+                          formControlName="balanceTransferFee_percent" />
+                        <mat-error *ngIf="!pattern">Please Enter Valid Number or N/A</mat-error>
+                      </mat-form-field>
+                      <mat-form-field>
+                        <input matInput placeholder="Balance Transfer Fee Min($)"
+                          [(ngModel)]="selectModel.balanceTransferFee_min" formControlName="balanceTransferFee_min" />
+                        <mat-error *ngIf="!pattern">Please Enter Valid Number or N/A</mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="spacing divBorder">
+                      <mat-form-field class="url1"><textarea matInput rows="4" placeholder="Notes"
+                          [(ngModel)]="selectModel.feeNotes" formControlName="feeNotes"></textarea>
+                      </mat-form-field>
+                    </div>
+                    <div>
+                      <button mat-raised-button class="btn btn-danger" matStepperPrevious>
+                        Back
+                      </button>
+                      <button mat-raised-button class="btn btn-danger" matStepperNext>
+                        Next
+                      </button>
+                    </div>
+                  </form>
+                </mat-step>
+                <mat-step [stepControl]="thirdFormGroup">
+                  <form [formGroup]="thirdFormGroup">
+                    <ng-template matStepLabel>Rewards</ng-template>
+                    <div class="spacing divBorder">
+                      <mat-form-field style="margin-left: 150px">
+                        <mat-label>Reward Format</mat-label>
+                        <mat-select [(ngModel)]="selectModel.rewards" [ngModelOptions]="{ standalone: true }" required>
+                          <mat-option *ngFor="let reward of views" [value]="reward.value">
+                            {{ reward.viewValue}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div class="divBorder">
+                      <div class="spacing">
+                        <mat-form-field>
+                          <input matInput [(ngModel)]="selectModel.rewards_onlineShop" placeholder="Online Shopping"
+                            formControlName="rewards_onlineShop" />
+                          <mat-error *ngIf="!pattern">Please Enter Valid Number or N/A</mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <input matInput [(ngModel)]="selectModel.rewards_travel" placeholder="Travel"
+                            formControlName="rewards_travel" />
+                          <mat-error *ngIf="!pattern">Please Enter Valid Number or N/A</mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <input matInput [(ngModel)]="selectModel.rewards_dining" placeholder="Dining"
+                            formControlName="rewards_dining" />
+                          <mat-error *ngIf="!pattern">Please Enter Valid Number or N/A</mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <input matInput [(ngModel)]="selectModel.rewards_gas" placeholder="Gas"
+                            formControlName="rewards_gas" />
+                          <mat-error *ngIf="!pattern">Please Enter Valid Number or N/A</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="spacing">
+                        <mat-form-field>
+                          <input matInput [(ngModel)]="selectModel.rewards_groceries" placeholder="Groceries"
+                            formControlName="rewards_groceries" />
+                          <mat-error *ngIf="!pattern">Please Enter Valid Number or N/A</mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <input matInput [(ngModel)]="selectModel.rewards_drugStore" placeholder="Drug Stores"
+                            formControlName="rewards_drugStore" />
+                          <mat-error *ngIf="!pattern">Please Enter Valid Number or N/A</mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <input matInput [(ngModel)]="selectModel.rewards_homeFurnishing"
+                            placeholder="Home Improvement / Furnishings" formControlName="rewards_homeFurnishing" />
+                          <mat-error *ngIf="!pattern">Please Enter Valid Number or N/A</mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <input matInput [(ngModel)]="selectModel.rewards_usSupermarkets"
+                            placeholder="US Supermarkets / Superstores" formControlName="rewards_usSupermarkets" />
+                          <mat-error *ngIf="!pattern">Please Enter Valid Number or N/A</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="spacing">
+                        <mat-form-field>
+                          <input matInput [(ngModel)]="selectModel.rewards_everythingElse" placeholder="Everything Else"
+                            formControlName="rewards_everythingElse" />
+                          <mat-error *ngIf="!pattern">Please Enter Valid Number or N/A</mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <input matInput [(ngModel)]="selectModel.rewards_choiceMultiplier"
+                            placeholder="Choice Multiplier" formControlName="rewards_choiceMultiplier" />
+                          <mat-error *ngIf="!pattern">Please Enter Valid Number or N/A</mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <input matInput [(ngModel)]="selectModel.rewards_rotatingMultiplier"
+                            placeholder="Rotating Multiplier 1" formControlName="rewards_rotatingMultiplier" />
+                          <mat-error *ngIf="!pattern">Please Enter Valid Number or N/A</mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <input matInput [(ngModel)]="selectModel.conditionalRequirements"
+                            placeholder="Conditional Requirements" formControlName="conditionalRequirements" />
+                          <mat-error *ngIf="!pattern">Please Enter N/A or N or Y</mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="spacing divBorder">
+                      <mat-form-field class="url1"><textarea matInput rows="4" placeholder="Notes"
+                          [(ngModel)]="selectModel.rewardNotes" formControlName="rewardNotes"></textarea>
+                      </mat-form-field>
+                    </div>
+                    <div>
+                      <button mat-raised-button class="btn btn-danger" matStepperPrevious>
+                        Back
+                      </button>
+                      <button mat-raised-button class="btn btn-danger" matStepperNext>
+                        Next
+                      </button>
+                    </div>
+                  </form>
+                </mat-step>
+                <mat-step [stepControl]="forthFormGroup">
+                  <form [formGroup]="forthFormGroup">
+                    <ng-template matStepLabel>Redemption Opportunities</ng-template>
+                    <div class="divBorder">
+                      <label class="labelCenter">Redemption Opportunities for Store Cards</label>
+                      <div class="spacing">
+                        <mat-form-field>
+                          <mat-label>In Store</mat-label>
+                          <mat-select [(ngModel)]="selectModel.redemptionStore_inStore"
+                            [ngModelOptions]="{ standalone: true }">
+                            <mat-option *ngFor="let drop of dropNAYN" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <mat-label>Online</mat-label>
+                          <mat-select [(ngModel)]="selectModel.redemptionStore_online"
+                            [ngModelOptions]="{ standalone: true }">
+                            <mat-option *ngFor="let drop of dropNAYN" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="divBorder">
+                      <label class="labelCenter">Redemption Opportunities (Cash Rewards)</label>
+                      <div class="spacing">
+                        <mat-form-field>
+                          <mat-label>Check</mat-label>
+                          <mat-select [(ngModel)]="selectModel.redemptionCash_check"
+                            [ngModelOptions]="{ standalone: true }">
+                            <mat-option *ngFor="let drop of drops" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <mat-label>Statement Credit</mat-label>
+                          <mat-select [(ngModel)]="
+                              selectModel.redemptionCash_statementCredit
+                            " [ngModelOptions]="{ standalone: true }">
+                            <mat-option *ngFor="let drop of drops" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <mat-label>Deposit in Account</mat-label>
+                          <mat-select [(ngModel)]="
+                              selectModel.redemptionCash_depositAccount
+                            " [ngModelOptions]="{ standalone: true }">
+                            <mat-option *ngFor="let drop of drops" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <input matInput placeholder="Holder Bank Name" [(ngModel)]="selectModel.redemptionCash_holderName" formControlName="redemptionCash_holderName" />
+                          <mat-error *ngIf="!pattern">Please Enter Name,N/A or N</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="spacing">
+                        <mat-form-field>
+                          <mat-label>Gift Cards</mat-label>
+                          <mat-select [(ngModel)]="selectModel.redemptionCash_gift"
+                            [ngModelOptions]="{ standalone: true }">
+                            <mat-option *ngFor="let drop of drops" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <mat-label>Reward Certificates</mat-label>
+                          <mat-select [(ngModel)]="
+                              selectModel.redemptionCash_rewardCertificate
+                            " [ngModelOptions]="{ standalone: true }">
+                            <mat-option *ngFor="let drop of drops" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <mat-label>Credit to Eligible Account with Merill Lynch /
+                            Merill Edge</mat-label>
+                          <mat-select [(ngModel)]="selectModel.redemptionCash_merillLynch"
+                            [ngModelOptions]="{ standalone: true }">
+                            <mat-option *ngFor="let drop of drops" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <label class="labelCenter">Points</label>
+                      <div class="spacing">
+                        <mat-form-field>
+                          <mat-label>Amazon</mat-label>
+                          <mat-select [(ngModel)]="
+                              selectModel.redemptionCash_points_amazon
+                            " [ngModelOptions]="{ standalone: true }">
+                            <mat-option *ngFor="let drop of drops" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <mat-label>Apple</mat-label>
+                          <mat-select [(ngModel)]="
+                              selectModel.redemptionCash_points_apple
+                            " [ngModelOptions]="{ standalone: true }">
+                            <mat-option *ngFor="let drop of drops" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="spacing divBorder">
+                      <mat-form-field class="url1"><textarea matInput rows="4" placeholder="Notes"
+                          [(ngModel)]="selectModel.redemptionNotes" formControlName="redemptionNotes"></textarea>
+                      </mat-form-field>
+                    </div>
+                    <div>
+                      <button mat-raised-button class="btn btn-danger" matStepperPrevious>
+                        Back
+                      </button>
+                      <button mat-raised-button class="btn btn-danger" matStepperNext>
+                        Next
+                      </button>
+                    </div>
+                  </form>
+                </mat-step>
+                <mat-step [stepControl]="fifthFormGroup">
+                  <form [formGroup]="fifthFormGroup">
+                    <ng-template matStepLabel>Bonus Offers</ng-template>
+                    <div class="divBorder">
+                      <label class="labelCenter">Bonus Offer</label>
+                      <div class="spacing">
+                        <label class="labelCenter">Reward Amount / Points -></label>
+                        <mat-form-field style="padding-right:200px">
+                          <mat-select [(ngModel)]="selectModel.rewardAmount" [ngModelOptions]="{ standalone: true }">
+                            <mat-option *ngFor="let amount of rewardamount" [value]="amount.rewardAmount">
+                              {{ amount.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-form-field style="padding-right: 150px">
+                          <input matInput placeholder="Reward Amount / Points"
+                            [(ngModel)]="selectModel.bonusOffer_rewardAmount"
+                            formControlName="bonusOffer_rewardAmount" />
+                          <mat-error *ngIf="!pattern">Please Enter Valid Number or N/A</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="spacing">
+                        <mat-form-field>
+                          <input matInput placeholder="Minimum Purchase Amount"
+                            [(ngModel)]="selectModel.bonusOffer_purchaseAmount"
+                            formControlName="bonusOffer_purchaseAmount" />
+                          <mat-error *ngIf="!pattern">Please Enter Valid Number or N/A</mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <input matInput placeholder="Nos of Days" [(ngModel)]="selectModel.bonusOffer_days"
+                            formControlName="bonusOffer_days" />
+                          <mat-error *ngIf="!pattern">Please Enter Valid Number or N/A</mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="divBorder">
+                      <label class="labelCenter">Bonus Offer Conditions</label>
+                      <div class="spacing">
+                        <mat-form-field>
+                            <mat-label>For New Member</mat-label>
+                            <mat-select [(ngModel)]="selectModel.bonusOfferCondition_newMember"
+                              [ngModelOptions]="{ standalone: true }">
+                              <mat-option *ngFor="let drop of dropNAY" [value]="drop.value">
+                                {{ drop.viewValue }}
+                              </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Not Recieved Bonus</mat-label>
+                            <mat-select [(ngModel)]="selectModel.bonusOfferCondition_notRecievedBonus"
+                              [ngModelOptions]="{ standalone: true }">
+                              <mat-option *ngFor="let drop of dropNAYN" [value]="drop.value">
+                                {{ drop.viewValue }}
+                              </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <input matInput placeholder="Time Period (Months)" [(ngModel)]="
+                              selectModel.bonusOfferCondition_timePeriod
+                            " formControlName="bonusOfferCondition_timePeriod" />
+                          <mat-error *ngIf="!pattern">Please Enter Valid Number or N/A</mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="spacing divBorder">
+                      <mat-form-field class="url1"><textarea matInput rows="4" placeholder="Notes"
+                          [(ngModel)]="selectModel.bonusNotes" formControlName="bonusNotes"></textarea>
+                      </mat-form-field>
+                    </div>
+                    <div>
+                      <button mat-raised-button class="btn btn-danger" matStepperPrevious>
+                        Back
+                      </button>
+                      <button mat-raised-button class="btn btn-danger" matStepperNext>
+                        Next
+                      </button>
+                    </div>
+                  </form>
+                </mat-step>
+                <mat-step [stepControl]="sixthFormGroup">
+                  <form [formGroup]="sixthFormGroup">
+                    <ng-template matStepLabel>Perks</ng-template>
+                    <div class="divBorder">
+                      <div class="spacing">
+                        <mat-form-field>
+                          <mat-label>Car Rental Insurance</mat-label>
+                          <mat-select [(ngModel)]="selectModel.perks_carRent" [ngModelOptions]="{ standalone: true }">
+                            <mat-option *ngFor="let drop of drops" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <mat-label>Purchase Price Protection</mat-label>
+                          <mat-select [(ngModel)]="selectModel.perks_priceProtection"
+                            [ngModelOptions]="{ standalone: true }">
+                            <mat-option *ngFor="let drop of drops" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <mat-label>Extended Warranty</mat-label>
+                          <mat-select [(ngModel)]="selectModel.perks_extendedWarranty"
+                            [ngModelOptions]="{ standalone: true }">
+                            <mat-option *ngFor="let drop of drops" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <mat-label>Purchase Protection</mat-label>
+                          <mat-select [(ngModel)]="selectModel.perks_purchaseProtection"
+                            [ngModelOptions]="{ standalone: true }">
+                            <mat-option *ngFor="let drop of drops" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <mat-label>Travel Accident Insurance</mat-label>
+                          <mat-select [(ngModel)]="selectModel.perks_travelInsurance"
+                            [ngModelOptions]="{ standalone: true }">
+                            <mat-option *ngFor="let drop of drops" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div class="spacing">
+                        <mat-form-field>
+                          <mat-label>Travel Assistance</mat-label>
+                          <mat-select [(ngModel)]="selectModel.perks_travelAssistance"
+                            [ngModelOptions]="{ standalone: true }">
+                            <mat-option *ngFor="let drop of drops" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <mat-label>Roadside Assistance</mat-label>
+                          <mat-select [(ngModel)]="selectModel.perks_roadAssistance"
+                            [ngModelOptions]="{ standalone: true }">
+                            <mat-option *ngFor="let drop of drops" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <mat-label>Baggage Delays / Luggage Partnerships</mat-label>
+                          <mat-select [(ngModel)]="selectModel.perks_bagageDelay"
+                            [ngModelOptions]="{ standalone: true }">
+                            <mat-option *ngFor="let drop of drops" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <mat-label>Concierge Service</mat-label>
+                          <mat-select [(ngModel)]="selectModel.perks_conciergeService"
+                            [ngModelOptions]="{ standalone: true }">
+                            <mat-option *ngFor="let drop of drops" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <mat-label>Lounge Access</mat-label>
+                          <mat-select [(ngModel)]="selectModel.perks_loungeAccess"
+                            [ngModelOptions]="{ standalone: true }">
+                            <mat-option *ngFor="let drop of drops" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="spacing divBorder">
+                      <mat-form-field class="url1"><textarea matInput rows="4" placeholder="Notes"
+                          [(ngModel)]="selectModel.perksNotes" formControlName="perksNotes"></textarea>
+                      </mat-form-field>
+                    </div>
+                    <div>
+                      <button mat-raised-button class="btn btn-danger" matStepperPrevious>
+                        Back
+                      </button>
+                      <button mat-raised-button class="btn btn-danger" matStepperNext>
+                        Next
+                      </button>
+                    </div>
+                  </form>
+                </mat-step>
+                <mat-step [stepControl]="seventhFormGroup">
+                  <form [formGroup]="seventhFormGroup">
+                    <ng-template matStepLabel>Store Card Reward Pattern</ng-template>
+                    <div class="spacing divBorder">
+                        <mat-label>First Purchase View--></mat-label>
+                      <mat-form-field style="padding-right:270px">
+                        <mat-select [(ngModel)]="selectModel.firstPurchaseView" [ngModelOptions]="{ standalone: true }">
+                          <mat-option *ngFor= "let purchase of firstPurchase" [value]="purchase.rewardAmount">
+                            {{purchase.viewValue}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <div class="spacing">
+                      <mat-form-field style="padding-right:100px">
+                        <input matInput [(ngModel)]="selectModel.storePattern_firstPurchase"
+                          placeholder="First Purchase" formControlName="storePattern_firstPurchase" />
+                        <mat-error *ngIf="!pattern">Please Enter Valid Number or N/A</mat-error>
+                      </mat-form-field>
+                    </div>
+                    </div>
+                    <div class="spacing divBorder">
+                      <mat-form-field>
+                        <input matInput [(ngModel)]="selectModel.storePattern_arriveInMail"
+                          placeholder="Card Arrives in Mail" formControlName="storePattern_arriveInMail" />
+                        <mat-error *ngIf="!pattern">Please Enter Valid Number or N/A</mat-error>
+                      </mat-form-field>
+                      <mat-form-field>
+                        <input matInput [(ngModel)]="
+                            selectModel.storePattern_specialOfferPerYear
+                          " placeholder="Special Offers Per Year" formControlName="storePattern_specialOfferPerYear" />
+                        <mat-error *ngIf="!pattern">Please Enter Valid Number,N/A,N or Y</mat-error>
+                      </mat-form-field>
+                      <mat-form-field>
+                        <input matInput [(ngModel)]="
+                            selectModel.storePattern_additionalOfferPerYear
+                          " placeholder="Additional Offers per Year"
+                          formControlName="storePattern_additionalOfferPerYear" />
+                        <mat-error *ngIf="!pattern">Please Enter Valid Number,N/A,N or Y</mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="divBorder">
+                      <label class="labelCenter">Additional Offer Condition</label>
+                      <div class="spacing">
+                        <mat-form-field>
+                          <input matInput [(ngModel)]="
+                              selectModel.storePattern_additionalOfferConditions_amount
+                            " placeholder="Amount" formControlName="storePattern_additionalOfferConditions_amount" />
+                          <mat-error *ngIf="!pattern">Please Enter Valid Number,N/A or N</mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <input matInput [(ngModel)]="
+                              selectModel.storePattern_additionalOfferConditions_duration
+                            " placeholder="Duration (Months)"
+                            formControlName="storePattern_additionalOfferConditions_duration" />
+                          <mat-error *ngIf="!pattern">Please Enter Valid Number,N/A or N</mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="spacing divBorder">
+                      <mat-form-field class="url1"><textarea matInput rows="4" placeholder="Notes"
+                          [(ngModel)]="selectModel.storecardNotes" formControlName="storecardNotes"></textarea>
+                      </mat-form-field>
+                    </div>
+                    <div>
+                      <button mat-raised-button class="btn btn-danger" matStepperPrevious>
+                        Back
+                      </button>
+                      <button mat-raised-button class="btn btn-danger" matStepperNext>
+                        Next
+                      </button>
+                    </div>
+                  </form>
+                </mat-step>
+                <mat-step [stepControl]="eighthFormGroup">
+                  <form [formGroup]="eighthFormGroup">
+                    <ng-template matStepLabel>Value</ng-template>
+                    <div class="divBorder">
+                      <div class="spacing">
+                        <mat-form-field>
+                          <mat-label>Paying Late raises your APR</mat-label>
+                          <mat-select [(ngModel)]="selectModel.value_payingLateApr"
+                            formControlName = "value_payingLateApr">
+                            <mat-option *ngFor="let drop of drops" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field><br />
+                        <mat-form-field>
+                          <mat-label>Late fee on first late payment</mat-label>
+                          <mat-select [(ngModel)]="selectModel.value_lateFirstPayment"
+                          formControlName = "value_lateFirstPayment">
+                            <mat-option *ngFor="let drop of drops" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field><br />
+                        <mat-form-field>
+                          <mat-label>Overlimit Fee</mat-label>
+                          <mat-select [(ngModel)]="selectModel.value_overLimitFee"
+                          formControlName = "value_overLimitFee">
+                            <mat-option *ngFor="let drop of drops" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field><br />
+                        <mat-form-field>
+                          <mat-label>Access a higher credit line</mat-label>
+                          <mat-select [(ngModel)]="selectModel.value_higherCreditLine"
+                          (selectionChange)="onSelectionChanged($event)"
+                          formControlName = "value_higherCreditLine">
+                            <mat-option *ngFor="let drop of drops" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field><br />
+                      </div>
+                      <div class="spacing">
+                        <mat-form-field>
+                          <input disable = "true" matInput placeholder="Duration(Months)" [(ngModel)]="selectModel.value_duration" formControlName="value_duration"/>
+                          <mat-error *ngIf="!pattern">Please Enter Valid Number</mat-error>
+                        </mat-form-field><br />
+                        <mat-form-field>
+                          <mat-label>Balance Transfer</mat-label>
+                          <mat-select [(ngModel)]="selectModel.value_balanceTransfer"
+                          formControlName = "value_balanceTransfer" disable = "true">
+                            <mat-option *ngFor="let drop of drops" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field><br />
+                        <mat-form-field>
+                          <mat-label>Foreign Transaction Fee</mat-label>
+                          <mat-select [(ngModel)]="selectModel.value_foreignFee"
+                          formControlName = "value_foreignFee">
+                            <mat-option *ngFor="let drop of drops" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field><br />
+                      </div>
+                    </div>
+                    <div class="divBorder">
+                      <label class="labelCenter">Fraud Protection</label>
+                      <div class="spacing">
+                        <mat-form-field>
+                          <mat-label>$0 Fraud Liability</mat-label>
+                          <mat-select [(ngModel)]="
+                              selectModel.fraudProtection_fraudLiability
+                            " formControlName = "fraudProtection_fraudLiability">
+                            <mat-option *ngFor="let drop of drops" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field><br />
+                        <mat-form-field>
+                          <mat-label>Virtual Card Number</mat-label>
+                          <mat-select [(ngModel)]="
+                              selectModel.fraudProtection_virtualCardNumber
+                            " formControlName = "fraudProtection_virtualCardNumber">
+                            <mat-option *ngFor="let drop of drops" [value]="drop.value">
+                              {{ drop.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field><br />
+                      </div>
+                    </div>
+                    <div class="spacing divBorder">
+                      <mat-form-field class="url1"><textarea matInput rows="4" placeholder="Notes"
+                          [(ngModel)]="selectModel.valueNotes" formControlName="valueNotes"></textarea>
+                      </mat-form-field>
+                    </div>
+                    <div>
+                      <button mat-raised-button class="btn btn-danger" matStepperPrevious>
+                        Back
+                      </button>
+                      <button mat-raised-button class="btn btn-danger" matStepperNext>
+                        Next
+                      </button>
+                    </div>
+                  </form>
+                </mat-step>
+
+                <mat-step>
+                  <ng-template matStepLabel>Done</ng-template>
+                  You are now done.
+                  <div>
+                    <button mat-raised-button class="btn btn-danger" matStepperPrevious>
+                      Back
+                    </button>
+                    <button mat-raised-button class="btn btn-danger" (click)="stepper.reset()">
+                      Reset
+                    </button>
+                  </div>
+                </mat-step>
+              </mat-vertical-stepper>
+            </div>
+            <button mat-raised-button [disabled]="
+                !firstFormGroup.valid ||
+                !secondFormGroup.valid ||
+                !thirdFormGroup.valid ||
+                !forthFormGroup.valid ||
+                !fifthFormGroup.valid ||
+                !seventhFormGroup.valid
+              " (click)="saveCardDetails()" class="btn btn-danger pull-right">
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

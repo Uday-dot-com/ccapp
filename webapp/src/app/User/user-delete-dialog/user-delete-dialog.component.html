@@ -1,0 +1,26 @@
+<div id="dlgbox">
+  <div id="dlg-header">{{ data.title }}</div>
+  <div id="dlg-body">
+    {{ data.message }}
+    <p class="info" *ngIf="isDisplaySubMessage">{{ data.subMessage }}</p>
+  </div>
+  <br />
+  <div id="dlg-footer">
+      <button
+      mat-raised-button
+      id="confirmButton"
+      class="btn btn-danger pull-left"
+      (click)="confirm()"
+    >
+      {{ data.confirmButtonText }}
+    </button>
+    <button
+      mat-raised-button
+      (click)="cancel()"
+      id="cancelButton"
+      class="btn btn-danger pull-right"
+    >
+      {{ data.cancelButtonText }}
+    </button>
+  </div>
+</div>

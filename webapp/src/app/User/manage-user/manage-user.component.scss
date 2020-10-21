@@ -1,0 +1,23 @@
+.example-container {
+  overflow: auto;
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.disableIcon:hover {
+  cursor: not-allowed;
+}
+
+.disableIcon:active {
+  pointer-events: none;
+}
+
+.disableIcon {
+   color: rgb(195, 195, 195);
+}
+
+

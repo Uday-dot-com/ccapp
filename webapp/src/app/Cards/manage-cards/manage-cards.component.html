@@ -1,0 +1,87 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-11">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">
+              Manage Cards
+              <button
+                mat-raised-button
+                type="submit"
+                (click)="addCard()"
+                class="btn btn-white pull-right"
+              >
+                Add Card
+              </button>
+            </h4>
+          </div>
+          <div class="card-body">
+            <div class="example-container mat-elevation-z8">
+              <table mat-table [dataSource]="cards" class="mat-elevation-z8">
+                <ng-container matColumnDef="bankName">
+                  <th mat-header-cell *matHeaderCellDef>Bank Name</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.bank.bankName }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="cardName">
+                  <th mat-header-cell *matHeaderCellDef>Card Name</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.cardName }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="details">
+                  <th mat-header-cell *matHeaderCellDef>Details</th>
+                  <td mat-cell *matCellDef="let element">
+                    <i
+                      class="material-icons cursorPointr"
+                      style="cursor: pointer;"
+                      (click)="fillDetails(element)">   
+                    note_add
+                    </i>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="edit">
+                  <th mat-header-cell *matHeaderCellDef>Edit</th>
+                  <td mat-cell *matCellDef="let element">
+                    <i
+                      class="material-icons cursorPointr"
+                      style="cursor: pointer;"
+                      (click)="editCard(element)"
+                    >
+                      edit
+                    </i>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="delete">
+                  <th mat-header-cell *matHeaderCellDef>Delete</th>
+                  <td mat-cell *matCellDef="let element">
+                    <i
+                      class="material-icons cursorPointr"
+                      style="cursor: pointer;"
+                      (click)="deleteCard(element._id)"
+                    >
+                      delete
+                    </i>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumns"
+                ></tr>
+              </table>
+
+              <mat-paginator
+                [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 15]"
+                showFirstLastButtons
+              ></mat-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

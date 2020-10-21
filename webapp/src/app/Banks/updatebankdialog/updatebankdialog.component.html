@@ -1,0 +1,32 @@
+<div class="card">
+  <div class="card-header ">
+    <h4 class="card-title">Update Bank</h4>
+    <div class="col-md-7">
+      <mat-form-field>
+        <input
+          matInput
+          [(ngModel)]="bankModel.bankName"
+          type="text"
+          name="bankName"
+        />
+      </mat-form-field>
+    </div>
+    <mat-card-actions>
+      <button
+        mat-raised-button
+        [disabled]="!bankModel.bankName"
+        (click)="updateBank()"
+        class="btn btn-danger pull-left"
+      >
+        Save
+      </button>
+      <button
+        mat-raised-button
+        mat-dialog-close
+        class="btn btn-danger pull-right"
+      >
+        Cancel
+      </button>
+    </mat-card-actions>
+  </div>
+</div>

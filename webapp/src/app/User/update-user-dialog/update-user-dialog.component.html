@@ -1,0 +1,21 @@
+<mat-card-title>Update User</mat-card-title>
+<mat-card-content>
+      <mat-form-field>
+      <input matInput [(ngModel)]="userModel.name" matInput placeholder="Name" type="text" name ="name"/> 
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="userModel.email" matInput placeholder="Email" type="text" name ="email"/> 
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Role</mat-label>
+       <mat-select [(ngModel)]="userModel.role" name="role"> 
+         <mat-option value="admin">Admin</mat-option>
+         <mat-option value="user">User</mat-option>
+      </mat-select>    
+    </mat-form-field>
+<mat-card-actions>
+    <button mat-raised-button mat-dialog-close  class="btn btn-danger pull-right">Cancel</button>
+    <button mat-raised-button style="float:left" class="btn btn-danger pull-left" [disabled]="!userModel.name || !userModel.email || !userModel.role"  (click)="saveUser()" >Save</button>
+    </mat-card-actions>
+</mat-card-content>
+

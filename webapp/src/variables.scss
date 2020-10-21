@@ -1,0 +1,282 @@
+/* VARIABLES  */
+/* brand colors */
+$color-primary: #3e8cd9;
+$color-accent: #ef6c00;
+$color-subtle: #aaaaaa;
+
+$color-accent-light: #ffa75e;
+
+/* rarity */
+$color-rarity-legendary: #4c139d;
+$color-rarity-ascended: #fb3e8d;
+$color-rarity-exotic: #ffa405;
+
+/*Product Table*/
+$product-table-background: #bde4e0;
+
+// Font stacks
+$_DEFAULT_FONT_STACK: "Helvetica Neue", "Helvetica", "Arial", "sans-serif";
+
+// Colors that should remain unchanged or just be replaced by others
+$_YELLOW: #f3f76a;
+$_RED: #ff0000;
+$_GREEN: #00ff00;
+$_BLUE: #0000ff;
+$_GRAY: #c5c5c5;
+$_WHITE: white;
+$_BLACK: black;
+$_GREY: gray;
+$_ORANGERED: orangered;
+$_YELLOWGREEN: yellowgreen;
+$_Green: green;
+
+/*********************
+** Variables
+*********************/
+
+// Fonts
+$default-font-size: 14px;
+$meta-font-size: 12px;
+$font-size-11: 11px;
+
+// Colors that can be changed because we use semantic classes.
+// This way, if you use the semantic classes in your partials
+// you don't have to revisit your partials when a color must be changed.
+$link-color: $_BLUE;
+$meta-link-color: $_GRAY;
+
+/*********************
+** Styles normally added to the partials
+*********************/
+.link {
+  color: $link-color;
+  font-family: $_DEFAULT_FONT_STACK;
+  font-size: $default-font-size;
+
+  &--meta {
+    color: $meta-link-color;
+    font-size: $meta-font-size;
+  }
+}
+/*************Variables for all theme.scss and style.scss**************/
+$border-table: #d2d2d2;
+$table_head: #999;
+$container-border: rgba(0, 0, 0, 0.1);
+$webkit-linear-gradient: #ffa75e;
+$linear-gradient: #ff841f;
+$padding-box: padding-box;
+$black-box-shadow: rgba(0, 0, 0, 0.5);
+$black-box-shadow1: rgba(0, 0, 0, 0.4);
+$black-box-shadow2: rgba(0, 0, 0, 0.7);
+$black-box-shadow3: rgba(255, 255, 255, 0.11);
+$reconcilation-panel-header-bgColor: rgba(25, 118, 210, 0.21);
+$reconcilation-panel-header-focuscolor: rgba(25, 118, 210, 0.14);
+$dotted-border: #cecece;
+$bg-color: rgba(25, 118, 210, 0.57);
+$bg-color1: rgba(25, 118, 210, 0.7490196078431373);
+$mat-card-title-color: rgb(255, 255, 255);
+$custom-font: rgb(25, 118, 210);
+$white: #ffffff;
+$td-navigation-drawer-hover: rgba(25, 118, 210, 0.06);
+$scrollbar: #ebebeb;
+$scrolbar: #6d6d6d;
+$header-content-color: #fafafa;
+$vertical-line-border: rgba(136, 183, 213, 0);
+$mat-complete: #008000;
+$capitalize: capitalize;
+$td-layout-managelist-color: #e4e4e4;
+$flex-end: flex-end;
+$end: end;
+$row-reverse: row-reverse;
+$wrap: wrap;
+$titling-caps: titling-caps;
+$flex: flex;
+$underline-color: rgba(25, 117, 210, 0.5);
+$start: start;
+$blue-light-shade: rgb(104, 156, 208);
+$basic-chip-color: rgba(0, 0, 0, 0.87);
+$info-class-snack: #2f96b4;
+$warning-snack: #f89406;
+$error-snack: #bd362f;
+$success-snack: #51a351;
+$box-shadow-inner: rgba(0, 0, 0, 0.12);
+$box-Shadow-inner: rgba(0, 0, 0, 0.24);
+$box-Shadow-item: rgba(0, 0, 0, 0.48);
+$highlight-color: #768294;
+$visible: visible;
+$table: table;
+
+/**************Homepage********************/
+$color-darkBlue: #15528e;
+$top-bar-custom: #23282d;
+$color-grey: #aeaeae;
+$a-color: #337ab7;
+$color-lightBlue: #09c4f2;
+$focus-color: #23527c;
+
+/************LogIn and SignUp*************/
+$border-color: #e0e0e0;
+$border-left-color: rgba(15, 70, 126, 0.3);
+$text-green: #388e3c;
+$mat-card-content-background-color: rgba(255, 255, 255, 0.2);
+$info-label: rgba(25, 118, 210, 0.7);
+$footer-text-color: #7a7a7a;
+$warning-message: #ffcc00;
+$messageStrip-background: #bbdefb;
+$messageStrip: #4793de;
+$color-blue: #1976d2;
+$cancelled: #b3b2b2;
+
+/*****************Menu********************/
+$color-hover: rgba(224, 224, 224, 0.28);
+$label1-color: #737373;
+$color-border: #ccc;
+
+/***********   Business setup   **********/
+
+/***Company Details ***/
+$underline: underline;
+
+/***********Company View***********/
+$color-grey-shade: #808080;
+$color-lightGrey: #bdbdbd;
+$box-shadow1: rgba(0, 0, 0, 0.2);
+$box-shadow2: rgba(0, 0, 0, 0.14);
+$box-shadow3: rgba(0, 0, 0, 0.12);
+$inline-grid: inline-grid;
+$left: left;
+$right: right;
+$bold: bold;
+$italic: italic;
+$top: top;
+
+/***********Edit customer*************/
+$divStrip-color: #f6e9d1;
+
+/********card-advance-receipt-summary********/
+$no-repeat: no-repeat;
+$center: center;
+$max-content: max-content;
+$all-small-caps: all-small-caps;
+$color-caption: #d0d0d0;
+$collapse: collapse;
+$color-whiteShade: #ececec;
+$uppercase: uppercase;
+$color-blueShade: rgb(25, 118, 210);
+
+/********card-invoice-detail-add*********/
+$color-blue-light: rgba(25, 118, 210, 0.5);
+$color-aliceblue: aliceblue;
+$inline-block: inline-block;
+$relative: relative;
+
+/** Company-search **/
+$lowercase: lowercase;
+
+/**  details-card  **/
+$color-brown: rgba(239, 108, 0, 0.42);
+
+/** dialog-confirm **/
+$dialog-footer: rgba(0, 0, 0, 0.13);
+
+/**  dialog-list  **/
+$errorMsg-bgColor: #ffbaba;
+$errorMsg-color: #d8000c;
+$color-grey-light: #888;
+
+/**  dialog-reconcillation   **/
+$all-petite-caps: all-petite-caps;
+$absolute: absolute;
+$light-green: #8bc34a;
+$light-orange: #ff5722;
+$light-gray: #b9b9b9;
+
+/**  dialog-validate  **/
+$color-white: #f1f1f1;
+
+/**  dialog-view-invoice  **/
+$color-black: rgba(0, 0, 0, 0.04);
+$color-blue-shade: rgba(49, 141, 226, 0.611765);
+$color-whitesmoke: whitesmoke;
+$color-lightbrown: rgba(255, 255, 255, 0.12);
+$light-blue: #81b9ed;
+
+/**  invoice-filter  **/
+$Material-icons: "Material Icons";
+$normal: normal;
+$none: none;
+$nowrap: nowrap;
+$antialiased: antialiased;
+$optimizeLegibility: optimizeLegibility;
+$grayscale: grayscale;
+$liga: "liga";
+$pointer: pointer;
+$color-boxshadow: rgba(0, 0, 0, 0.117647);
+$color-boxShadow: rgba(0, 0, 0, 0.239216);
+$inline-flex: inline-flex;
+$color-gray-light: #666;
+
+/**  invoice-search  **/
+$solid: solid;
+$ellipsis: ellipsis;
+$hidden: hidden;
+$light-shade: #d3d3d3;
+
+/**  multi-select-popup  **/
+$light-grey: lightgray;
+
+/**  Sbm-info  **/
+$relative: relative;
+
+/**  under-maintenance-page  **/
+$cover: cover;
+$dark-blackShade: #222;
+$light-blackShade: #333;
+$black-shade: #111;
+$black-boxshadow: rgba(0, 0, 0, 0.6);
+$black-boxShadow: rgba(0, 0, 0, 0.7);
+$block: block;
+$bgColor: #eee;
+$transparent: transparent;
+$font: "Lobster";
+
+/**  view-invoice  **/
+$fixed: fixed;
+$grey-color: #b0b0b0;
+$display: table-header-group;
+
+/**  header  **/
+$initial: initial;
+$blue: rgba(25, 118, 210, 0.25);
+$break-word: break-word;
+$spanshade: #bfbfbf;
+$lightshade: #8c8c8c;
+$diagonal-fractions: diagonal-fractions;
+
+/** menu  **/
+$inherit: inherit;
+$super: super;
+$middle: middle;
+
+/**   reconcilation-sales-search   **/
+$cardcontent-bgColor: rgb(245, 245, 245);
+
+/**   reconcilation-search   **/
+$pre-wrap: pre-wrap;
+
+/**  NOTE-INVOICE  **/
+$boxshadow: rgba(0, 0, 0, 0.0784314);
+$boxShadow: rgba(0, 0, 0, 0.239216);
+
+/** sale-regular-invoice  **/
+$cancelledRow: rgba(0, 0, 0, 0.38);
+
+/**  reset password  **/
+$grey-shade: #525252;
+$sbmuser: #e6e6e6;
+
+/**  user-profile  **/
+$border-box: border-box;
+$auto: auto;
+$hundred-px: 100px;
+$zero-px: 0px;
